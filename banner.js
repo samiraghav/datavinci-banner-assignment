@@ -29,24 +29,22 @@
 
     function updateTimer() {
         var now = new Date().getTime();
-
         var distance = endTime - now;
 
+        if (distance >= 0) {
         var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-
         var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-
         var seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
         text2.innerHTML = "Ends in: " + '<b>' + hours.toString().padStart(2, '0') + " : " +
             minutes.toString().padStart(2, '0') + " : " + seconds.toString().padStart(2, '0') + '</b>';
-
-            if (distance < 0) {
+        } else {
+            text2.innerHTML = "<b>Expired</b>";
             clearInterval(timerInterval);
-            endTime = now + 1 * 60 * 1000; 
+            endTime = now + 1 * 60 * 1000;
             timerInterval = setInterval(updateTimer, 1000);
         }
-    }
+        }
 
     var timerInterval = setInterval(updateTimer, 1000);
 
